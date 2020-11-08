@@ -24,5 +24,9 @@ class Post extends Model
     public function reply_to() {
         return $this->belongsTo(\App\Models\Post::class, 'reply_id', 'id');
     }
+
+    public function image() {
+        return $this->morphONe(\App\Models\Image::class, 'imageable');
+    }
     
 }
