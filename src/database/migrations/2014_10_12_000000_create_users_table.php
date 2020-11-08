@@ -17,15 +17,18 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('avatar')->default('/storage/images/');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('image_id')->nullable(true);
             $table->unsignedInteger('role_id')->default(3);
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('image_id')->references('id')->on('images')
+                ->onDelete('set null')->onUpdate('cascade');
         });
     }
 
