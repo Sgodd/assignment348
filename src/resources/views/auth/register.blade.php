@@ -1,4 +1,63 @@
-@extends('layouts.app')
+@extends('layouts.layout')
+
+@section('content')
+<div class="container">
+    <div class="mt-12 shadow mx-8 p-8 pb-4 md:mx-auto md:w-1/2 xl:w-1/4 rounded-lg">
+        <h1 class="font-semibold text-xl">{{__('Register') }}</h1>
+
+        <div>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf 
+
+                <label for="name" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Name') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('name') is-invalid @enderror" type="text" name="name" id="email" placeholder="John Smith">
+                    @error('name')
+                        <span class="text-red-400" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </label>
+
+                <label for="email" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Email') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="somebody@example.com">
+                    @error('email')
+                        <span class="text-red-400" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </label>
+
+                <label for="password" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Password') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="">
+                    @error('password')
+                        <span class="text-red-400" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </label>
+
+                <label for="password-confirm" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Confirm Password') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('password') is-invalid @enderror" type="password" name="password_confirmation" id="password-confirm" placeholder="">
+                </label>
+
+                <div class="mt-6 block items-center text-center">
+                    <button type="submit" class="text-xl font-bold block p-3 mr-4 bg-pink-600 rounded-lg w-full  hover:bg-pink-700 text-white transition duration-200 ease-in-out">
+                        {{ __('Register') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+@endsection
+
+{{--
+@extends('layouts.layout')
 
 @section('content')
 <div class="container">
@@ -75,3 +134,4 @@
     </div>
 </div>
 @endsection
+--}}

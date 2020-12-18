@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
+@tailwind base;
+@tailwind css;
+@tailwind utilities;
+
+.active {
+    @apply bg-gray-300;
+}
+
+.accent-link {
+    @apply transition;
+    @apply duration-200;
+    @apply ease-in-out;
+}
+
+.accent-link:hover {
+    @apply transition;
+    @apply duration-200;
+    @apply ease-in-out;
+}

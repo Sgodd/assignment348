@@ -1,73 +1,57 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="mt-12 shadow mx-8 p-8 pb-4 md:mx-auto md:w-1/2 xl:w-1/4 rounded-lg">
+        <h1 class="font-semibold text-xl">{{__('Login') }}</h1>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+        <div>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf 
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                <label for="email" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Email') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="somebody@example.com">
+                    @error('email')
+                        <span class="text-red-400" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <label for="password" class="block mt-4">
+                    <span class="text-gray-700">{{ __('Password') }}</span> 
+                    <input class="form-input mt-1 block w-full rounded-lg  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="">
+                    @error('password')
+                        <span class="text-red-400" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </label>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                <label for="remember" class="block mt-4">
+                    <input class="form-checkbox text-pink-600 text-lg rounded-md" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <span class="text-gray-700">{{ __('Remember Me') }}</span>
+                </label> 
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                <div class="mt-4 block items-center text-center">
+                    <button type="submit" class="text-xl font-bold block p-3 mr-4 bg-pink-600 rounded-lg w-full  hover:bg-pink-700 text-white transition duration-200 ease-in-out">
+                        {{ __('Log in') }}
+                    </button>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="mt-4 text-gray-700 block hover:text-pink-600 accent-link "><u>{{ __('Forgot Your Password?') }}</u></a>
+                    @endif
                 </div>
-            </div>
+
+                <hr class="mt-4">
+                
+                <div class="w-full mt-6 mx-auto items-center text-center">
+                    <a class="text-2xl text-pink-600 font-bold hover:text-pink-600 accent-link" href="{{ route('register') }}">{{ __('Create an account here') }}</a>
+                </div>
+    
+            </form>
         </div>
     </div>
+
 </div>
 @endsection

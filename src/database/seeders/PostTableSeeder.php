@@ -26,7 +26,5 @@ class PostTableSeeder extends Seeder
             $post->reply_id = $faker->optional($weight=0.1)->passthrough(\App\Models\Post::get()->random()->id);
             $post->save();
         });
-
-        
     }
 }

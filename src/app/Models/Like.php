@@ -20,10 +20,4 @@ class Like extends Model
     public static function find($postId) {
         return Like::get()->where('post_id', $postId);
     }
-
-    public static function has($postId, $userId) {
-        return null != Like::get()->where('post_id', $postId)
-            ->where('user_id', $userId)->all();
-    }
-
 }
