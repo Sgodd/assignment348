@@ -4,7 +4,8 @@
 
     <div class="m-4 w-auto md:mx-auto md:w-3/5 p-4 rounded-lg shadow">
         <div class="m-4 w-auto p-4 pb-2 rounded-lg shadow">
-            <form method="" action="{{-- route('post') --}}">
+            <form method="post" action="{{ route('createPost') }}" enctype="multipart/form-data">
+                @csrf 
                 <span class="text-gray-700 text-lg font-semibold">{{ __("Create a post!") }}</span>
                 <hr class="my-2 border-gray-300">
                 <textarea class="input-form my-2 rounded-lg w-full  bg-gray-50 border-gray-200" rows=7 name="body" id="body" placeholder="Write something here."></textarea>

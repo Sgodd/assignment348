@@ -17,13 +17,13 @@ class PostTableSeeder extends Seeder
 
         $faker = Factory::create();
 
-        \App\Models\Post::factory(50)->create()->each(function ($post) use ($faker) {
+        \App\Models\Post::factory(500)->create()->each(function ($post) use ($faker) {
             /**
              * 0.1 chance of a post being assigned a reply_id
              * Having reply_id means the post is a reply
              * Since all replies are posts, all replies can be replied to
              */
-            $post->reply_id = $faker->optional($weight=0.1)->passthrough(\App\Models\Post::get()->random()->id);
+            $post->reply_id = $faker->optional($weight=0.3)->passthrough(\App\Models\Post::get()->random()->id);
             $post->save();
         });
     }

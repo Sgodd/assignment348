@@ -7,7 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+
+    
     public function imageable() {
         return $this->morphTo();
     }
+
+
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        "path",
+        "imageable_type",
+        "imageable_id"
+    ];
 }

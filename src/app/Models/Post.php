@@ -29,4 +29,13 @@ class Post extends Model
         return $this->morphONe(\App\Models\Image::class, 'imageable');
     }
     
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        "user_id",
+        "text"
+    ];
 }

@@ -1,6 +1,8 @@
 @php
     $replies = $post->replies;
     $count = count($replies)
+
+    
 @endphp
 
 <div class="text-gray-700 mt-6">

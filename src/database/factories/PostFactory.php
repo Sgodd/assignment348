@@ -24,7 +24,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::get()->random()->id,
-            'text' => $this->faker->realText(rand(10, 150))
+            'text' => $this->faker->sentence($nb_words=rand(5, 50))
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Post;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class PostController extends Controller
     {
         $user = Auth::user();
         if (Role::hasPermission($user->role->permissions_flag, "READ")) {
-            $posts = Post::get();
+            $posts = Post::orderBy('created_at', 'DESC')->where("reply_id", NULL)->paginate(15);
             return view('home', ['posts' => $posts]);
         } else {
             return $user;
@@ -38,6 +39,7 @@ class PostController extends Controller
 
         // return $posts;
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -57,7 +59,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $user = auth()->user();
+
+        $post = Post::create([
+            'user_id' =>$user->id,
+            'text' => $request->body,
+        ]);
+
+        if ($request->file('image') != null) {
+            $path = $request->file('image')->store('images');
+            $image = Image::create([
+                'path' => $path,
+                'imageable_type' => Post::class,
+                'imageable_id' => $post->id
+            ]);
+    
+            $post->image_id = $image->id;
+            $image->save();
+        }
+
+       
+
+        $post->save();
+
+        return redirect()->route('home');
     }
 
     /**

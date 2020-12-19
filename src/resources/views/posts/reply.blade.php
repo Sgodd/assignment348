@@ -14,6 +14,4 @@
             @include("posts.reply", ["depth" => 0, "reply"=>$reply])
         @endforeach
     @endif
-
-
 </div>
