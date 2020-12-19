@@ -16,7 +16,7 @@ class User extends Authenticatable
     }
 
     public function role() {
-        return $this->hasOne(\App\Models\Role::class);
+        return $this->belongsTo(\App\Models\Role::class);
     }
 
     public function image() {
