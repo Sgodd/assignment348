@@ -6,7 +6,7 @@
 
         @if (Auth::Check())
             <li class="mr-6 p-1">
-                <a class="text-black hover:text-pink-600 accent-link" href="{{ route('login') }}">{{ __('Account') }}</a>
+                <a class="text-black hover:text-pink-600 accent-link" href="#{{--{{ route('account') }} --}}">{{ __('Account') }}</a>
             </li>            
     
             <li class="mr-6 p-1">

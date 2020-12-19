@@ -30,7 +30,7 @@ class PostController extends Controller
         $user = Auth::user();
         if (Role::hasPermission($user->role->permissions_flag, "READ")) {
             $posts = Post::get();
-            return view('posts.posts', ['posts' => $posts]);
+            return view('home', ['posts' => $posts]);
         } else {
             return $user;
             // return view('forbidden', ['posts' => null]);

@@ -21,7 +21,7 @@ Auth::routes();
 
 
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('home');
 
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.all');
 Route::get('/posts/post/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');

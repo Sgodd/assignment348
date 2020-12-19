@@ -13,6 +13,7 @@ module.exports = {
       transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
       
     extend: {
+        opacity: ['disabled'],
         backgroundColor: ['active'],
     },
   },
