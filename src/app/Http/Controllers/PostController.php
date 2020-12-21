@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\Role;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,7 +70,8 @@ class PostController extends Controller
         ]);
 
         if ($request->file('image') != null) {
-            $path = $request->file('image')->store('images');
+            $path = $request->file('image')->store('public/images');
+            $path = substr($path, strlen('public/'));
             $image = Image::create([
                 'path' => $path,
                 'imageable_type' => Post::class,
@@ -85,6 +87,28 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->route('home');
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reply(Request $request)
+    {
+        $user = auth()->user();
+
+
+        $post = Post::create([
+            'user_id' =>$user->id,
+            'reply_id' => $request->reply_id,
+            'text' => $request->reply,
+        ]);
+
+        $post->save();
+
+        return view('posts.reply', ["replies"=>[], "reply"=>$post, "depth"=>0]);
     }
 
     /**

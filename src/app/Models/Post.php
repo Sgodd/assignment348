@@ -26,7 +26,7 @@ class Post extends Model
     }
 
     public function image() {
-        return $this->morphONe(\App\Models\Image::class, 'imageable');
+        return $this->morphOne(\App\Models\Image::class, 'imageable');
     }
     
     /**
@@ -36,6 +36,7 @@ class Post extends Model
      */
     protected $fillable = [
         "user_id",
+        "reply_id",
         "text"
     ];
 }

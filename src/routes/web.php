@@ -22,7 +22,8 @@ Auth::routes();
 
 
 Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('home');
-Route::post('/createPost', [App\Http\Controllers\PostController::class, 'store'])->name('createPost');
+Route::post('/posts/make', [App\Http\Controllers\PostController::class, 'store'])->name('posts.make');
+Route::post('/posts/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('posts.reply');
 
 
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.all');

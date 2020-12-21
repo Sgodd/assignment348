@@ -35,7 +35,7 @@
                 </label> 
 
                 <div class="mt-4 block items-center text-center">
-                    <button type="submit" class="text-xl font-bold block p-3 mr-4 bg-pink-600 rounded-lg w-full  hover:bg-pink-700 text-white transition duration-200 ease-in-out">
+                    <button type="submit" class="focus:outline-0 focus:outline-none text-xl font-bold block p-3 mr-4 bg-pink-600 rounded-lg w-full  hover:bg-pink-700 text-white transition duration-200 ease-in-out">
                         {{ __('Log in') }}
                     </button>
                     @if (Route::has('password.request'))
