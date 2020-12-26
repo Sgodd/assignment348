@@ -4,6 +4,10 @@
 @tailwind css;
 @tailwind utilities;
 
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
 .active {
     @apply bg-gray-300;
 }

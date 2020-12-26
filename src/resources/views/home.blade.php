@@ -67,6 +67,7 @@
         
 
         $(document).on("click", ".like-btn", function() {
+
         });
 
  
@@ -75,6 +76,64 @@
         });
 
         $(document).on("click", ".delete-btn", function() {
+
+        });
+
+        $(document).on("click", ".edit-btn", function() {
+            var form = $(this).parent();
+
+            var postText = form.parent().siblings(".post-text");
+            postText.attr("contenteditable", true).focus();
+            postText.addClass("bg-pink-100 border border-pink-600")
+
+            var old = postText.html();
+
+            postText.on("keydown", function(e) {
+
+                if (e.which == 13 && !e.shiftKey) {
+                 
+                    postText.attr("contenteditable", false);
+                    postText.off();
+
+                    if (postText.html()) {
+                        form.children('.edit-value').val(postText.html());
+                        form.submit();
+                        postText.removeClass("bg-pink-100 border border-pink-600")
+                    } else {
+                        postText.attr("contenteditable", false);
+                        postText.off();
+                        postText.html(old);
+                        postText.removeClass("bg-pink-100 border border-pink-600")
+                    }
+
+                } else if (e.which == 27) {
+                    postText.attr("contenteditable", false);
+                    postText.off();
+                    postText.html(old);
+
+                    postText.removeClass("bg-pink-100 border border-pink-600")
+                }
+            });
+        });
+
+        $(document).on("submit", ".edit-form", function() {
+
+            var form = $(this);
+            var action = $(this).attr("action");
+
+            $.ajax({
+                "url":action,
+                "method" : "put",
+                "data": form.serialize(),
+                "success": function(data) { 
+
+                },
+                "error":function(err) {
+                    console.log(err.responseText);
+                }
+            });
+
+            return false;
 
         });
 
@@ -129,8 +188,6 @@
                     replyTo.append(data);
                     form.addClass("hidden").children("input[type=text]").val("");
                     form.children("input[type=text]").attr('disabled', false);
-                    console.log("something happened");
-
                 },
                 "error":function(err) {
                     $(replyCount).html(+$(replyCount).html()-1);

@@ -31893,6 +31893,10 @@ select{
           animation: bounce 1s infinite;
 }
 
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
 .active {
   --tw-bg-opacity: 1;
   background-color: rgba(209, 213, 219, var(--tw-bg-opacity));

@@ -8,7 +8,7 @@
     @if (!$deleted) 
         <span class="font-bold text-sm">{{$reply->user->name}}</span>
         <span class="text-xs font-bold reply-count">{{$count}}</span> {{($count == 1 ? " Reply" : " Replies")}}<span></span><br>
-        <span class="">{{$reply->text}}</span>
+        <span class="post-text block w-full">{!! $reply->text !!}</span>
     @else 
         <span class="font-bold text-sm text-gray-300"><i>deleted</i></span>
         <span class="text-xs font-bold reply-count">{{$count}}</span> {{($count == 1 ? " Reply" : " Replies")}}<span></span><br>

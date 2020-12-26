@@ -75,7 +75,7 @@ class PostController extends Controller
         return redirect()->route('home');
     }
 
-        /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,6 +97,39 @@ class PostController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
+    {
+        $user = auth()->user();
+        
+        $post = Post::find($request->post_id);
+
+        $text = $request->text; 
+
+
+        if ($user->id == $post->user_id) {
+
+            if (!ctype_space($text)) {
+                $post->text = $text;
+                $post->save();
+            } else {
+                return false;
+            }
+   
+            
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -105,10 +138,12 @@ class PostController extends Controller
     public function delete(Request $request)
     {
         $user = auth()->user();
-
         $post = Post::find($request->post_id);
-        $post->delete();
-        $post->save();
+
+        if ($user->id == $post->user_id) {
+            $post->delete();
+            $post->save();
+        }
 
         return true;
     }
@@ -127,17 +162,6 @@ class PostController extends Controller
     
 
         return view('posts.post', ['post' => $post, 'replies' => $replies]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

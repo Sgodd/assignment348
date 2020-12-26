@@ -13,9 +13,7 @@
         </div>
     </div>
     <div class="mx-4 w-auto p-4 shadow z-20 relative">
-        <div class="w-full">
-            <span>{{$post->text}}</span>
-        </div>
+        <span class="post-text w-full block">{!! $post->text !!}</span>
         @if ($post->image_id)
             <img class="mx-auto shadow h-auto max-w-full p-4 bg-gray-50 shadow my-4" src="{{asset("storage/".$post->image->path)}}" alt="">
         @endif

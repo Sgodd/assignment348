@@ -26,6 +26,8 @@ Route::post('/posts/make', [App\Http\Controllers\PostController::class, 'store']
 Route::post('/posts/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('posts.reply');
 Route::post('/posts/delete', [App\Http\Controllers\PostController::class, 'delete'])->name('posts.delete');
 
+Route::put('/posts/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('posts.edit');
+
 
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.all');
 Route::get('/posts/post/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
