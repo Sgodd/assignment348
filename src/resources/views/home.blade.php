@@ -66,41 +66,82 @@
         // creates form to allow for a reply
         
 
+        $(document).on("click", ".like-btn", function() {
+        });
+
+ 
         $(document).on("click", ".reply-btn", function() {
-            
             $(this).siblings(".reply-form").removeClass("hidden");
         });
 
-        $(document).on("submit", ".reply-form", function() {
+        $(document).on("click", ".delete-btn", function() {
+
+        });
+
+
+        $(document).on("submit", ".delete-form", function() {
+            var form = $(this);
+            var post = $(this).closest(".replyable");
+            var replyCount = post.parent().closest(".replyable").find('.reply-count')[0];
+
+            if (!post.length) {
+                post = $(this).closest(".post-body");
+            }
+
             action = $(this).attr("action");
-            replyTo = $(this).closest(".replyable");
-            replyCount = replyTo.find('.reply-count')[0];
+            $.ajax({
+                "url":action,
+                "method" : "post",
+                "data": form.serialize(),
+                "success": function(data) { 
+                    post.remove();
+                    $(replyCount).html(+$(replyCount).html()-1);
+                },
+                "error":function(err) {
+                    console.log(err.responseText);
+                }
+            });
+
+            return false;
+
+        });
+
+        $(document).on("submit", ".reply-form", function() {
+            var form = $(this);
+            var action = $(this).attr("action");
+
+            var replyTo = $(this).closest(".replyable");
+            var replyCount = replyTo.find('.reply-count')[0];
 
             if(!replyTo.length) {
+                
                 replyTo = $(this).parent().parent().siblings('.reply-section').children('.replyable');
                 replyCount = replyTo.parent().find('.reply-count')[0];
             }
 
             $(replyCount).html(+$(replyCount).html()+1);
 
-            idInput = $(this).find('.reply-id');
-            postId = idInput.val();
-            
-            // console.log($(this).closest(".post-replies"));
-
             $.ajax({
                 "url":action,
                 "method" : "post",
-                "data": $(this).serialize(),
+                "data": form.serialize(),
                 "success": function(data) { 
                     replyTo.append(data);
+                    form.addClass("hidden").children("input[type=text]").val("");
+                    form.children("input[type=text]").attr('disabled', false);
+                    console.log("something happened");
+
                 },
                 "error":function(err) {
-                    console.error(err.responseText)
+                    $(replyCount).html(+$(replyCount).html()-1);
+                    form.children("input[type=text]").attr('disabled', false);
+                    console.log(err.responseText);
                 }
             })
 
-            $(this).addClass("hidden").children("input[type=text]").val("");
+            form.children("input[type=text]").attr('disabled', true);
+
+
             return false;
         });
         

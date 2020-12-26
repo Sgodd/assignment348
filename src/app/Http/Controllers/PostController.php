@@ -43,16 +43,6 @@ class PostController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,8 +50,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $user = auth()->user();
 
         $post = Post::create([
@@ -82,8 +70,6 @@ class PostController extends Controller
             $image->save();
         }
 
-       
-
         $post->save();
 
         return redirect()->route('home');
@@ -99,16 +85,32 @@ class PostController extends Controller
     {
         $user = auth()->user();
 
-
         $post = Post::create([
             'user_id' =>$user->id,
-            'reply_id' => $request->reply_id,
+            'reply_id' => $request->post_id,
             'text' => $request->reply,
         ]);
 
         $post->save();
 
-        return view('posts.reply', ["replies"=>[], "reply"=>$post, "depth"=>0]);
+        return view('posts.reply', ["replies"=>[], "reply"=>$post, "depth"=>0, "deleted"=>false]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request)
+    {
+        $user = auth()->user();
+
+        $post = Post::find($request->post_id);
+        $post->delete();
+        $post->save();
+
+        return true;
     }
 
     /**
@@ -122,6 +124,7 @@ class PostController extends Controller
         Auth::user();
         $post = Post::find($id);
         $replies = $post->replies;
+    
 
         return view('posts.post', ['post' => $post, 'replies' => $replies]);
     }
@@ -157,6 +160,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

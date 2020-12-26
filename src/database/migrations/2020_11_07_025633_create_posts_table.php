@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->text('text');
             $table->unsignedBigInteger('image_id')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
+            
 
 
             $table->foreign('user_id')->references('id')->on('users')
