@@ -15,6 +15,10 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Post::class);
     }
 
+    public function likes() {
+        return $this->hasMany(\App\Models\Like::class);
+    }
+
     public function role() {
         return $this->belongsTo(\App\Models\Role::class);
     }

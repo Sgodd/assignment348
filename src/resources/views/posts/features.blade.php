@@ -1,19 +1,35 @@
-<div class="mt-4 flex items-center space-x-4">
+@php
+    
+    $user = auth()->user();
     
 
-    <form class="my-0 like-form" method="POST" action="posts/edit">
+    $likes = $post->likes;
+
+    $liked = false;
+
+    foreach ($likes as $like) {
+        if ($like->user_id == $user->id and $like->post_id == $post->id) {
+            $liked = true;
+            break;
+        }
+    }
+
+    
+@endphp
+
+
+<div class="mt-4 flex items-center space-x-4">
+    
+    <form class="like-form my-0" method="POST" action="toggleLike">
         @csrf
-        <input class="reply-id" type="hidden" name="post_id" value="{{$post->id}}">
-        <button class="inline like-btn flex-none focus:outline-0 focus:outline-none accent-link hover:text-pink-600">
-            <span class="inline"> {{count($post->likes)}} 
-                <svg class="inline align-text-top" width=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                </svg>
-            </span>
+        <button type="submit" name="like-btn" class="@if ($liked)liked text-pink-600 @endif like-btn flex-none focus:outline-0 focus:outline-none accent-link hover:text-pink-600">
+            <span class="inline like-count"> {{count($post->likes)}} </span>
+            <svg class="inline align-text-top" width=20 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+            </svg>
+            <input class="post-id" type="hidden" name="id" value={{$post->id}}>
         </button>
     </form>
-
-
     
 
     <button class="reply-btn flex-none focus:outline-0 focus:outline-none accent-link hover:text-pink-600">
@@ -28,7 +44,7 @@
         <input class="reply-id" type="hidden" name="post_id" value="{{$post->id}}">
     </form>
 
-    @if (auth()->user()->id == $post->user_id)
+    @if ($user->id == $post->user_id)
     
         <form class="my-0 edit-form" method="PUT" action="posts/edit">
             @csrf

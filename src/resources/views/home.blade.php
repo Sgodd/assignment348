@@ -65,19 +65,53 @@
 
         // creates form to allow for a reply
         
+        $(document).on("submit", ".like-form", function() {
 
-        $(document).on("click", ".like-btn", function() {
+            var form = $(this);
+            var action = $(this).attr("action");
+            var count = $($(this).find(".like-count")[0])
 
+            var btn = $(this).children("button[name='like-btn']");
+            var add = 1;
+            
+
+            if (btn.hasClass("liked")) {
+                add = -1
+                btn.removeClass("liked text-pink-600")
+            } else {
+                add = 1
+                btn.addClass("liked text-pink-600")
+            }
+
+            count.html((+count.html()+add));
+
+
+            $.ajax({
+                "url":action,
+                "method" : "post",
+                "data": form.serialize(),
+                "error":function(err) {
+                    count.html((+count.html()-add));
+                    if (add > 0) {
+                        btn.removeClass("liked text-pink-600")
+                    } else {
+                        btn.addClass("text-pink-600");
+                    }
+                    
+                }
+            });
+
+            return false;
         });
 
  
-        $(document).on("click", ".reply-btn", function() {
-            $(this).siblings(".reply-form").removeClass("hidden");
-        });
+        // $(document).on("click", ".reply-btn", function() {
+        //     $(this).siblings(".reply-form").removeClass("hidden");
+        // });
 
-        $(document).on("click", ".delete-btn", function() {
+        // $(document).on("click", ".delete-btn", function() {
 
-        });
+        // });
 
         $(document).on("click", ".edit-btn", function() {
             var form = $(this).parent();

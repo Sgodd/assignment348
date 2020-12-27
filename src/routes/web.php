@@ -28,6 +28,8 @@ Route::post('/posts/delete', [App\Http\Controllers\PostController::class, 'delet
 
 Route::put('/posts/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('posts.edit');
 
+Route::post('/toggleLike', [App\Http\Controllers\LikeController::class, 'toggle'])->name('likes.toggle');
+
 
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.all');
 Route::get('/posts/post/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');

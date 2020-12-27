@@ -15,15 +15,14 @@ class CreateLikesTable extends Migration
     public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
+            $table->bigIncrements("id");
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
-            $table->primary(['user_id', 'post_id']); // Like cannot be from the same user on the same post
+            $table->unique(['user_id', 'post_id']); // Like cannot be from the same user on the same post
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')
-                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

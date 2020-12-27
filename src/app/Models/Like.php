@@ -20,4 +20,16 @@ class Like extends Model
     public static function find($postId) {
         return Like::get()->where('post_id', $postId);
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        "user_id",
+        "post_id"
+    ];
+
+    public $primary = ["user_id", "post_id"];
 }
