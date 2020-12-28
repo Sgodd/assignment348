@@ -17,7 +17,7 @@
                         </label>
                     </div>
                     <div class="block md:flex-1 mt-6 md:mt-0 md:mx-auto">
-                        <img class="rounded-lg max-w-1/4 mx-auto max-h-sm align-middle" id="imgpreview">
+                        <img class="rounded-lg max-w-1/4 mx-auto max-h-sm align-middle" alt="" id="imgpreview">
                     </div>
                 </div>
 

@@ -11,9 +11,9 @@
 
             <div class="inline-block align-middle">
                 @if ($post->user->image_id) 
-                    <img class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/".$post->user->image->path)}}" alt="">
+                    <img alt="profile image" class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/".$post->user->image->path)}}" alt="">
                 @else 
-                    <img class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/profiles/default.png")}}" alt="">
+                    <img alt="default profile image" class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/profiles/default.png")}}" alt="">
                 @endif
             </div>
             <div class="ml-2 inline-block align-middle">
@@ -26,7 +26,7 @@
     <div class="mx-4 w-auto p-4 shadow z-20 relative">
         <span class="post-text w-full block">{!! $post->text !!}</span>
         @if ($post->image_id)
-            <img class="mx-auto shadow h-auto max-w-full p-4 bg-gray-50 shadow my-4" src="{{asset("storage/".$post->image->path)}}" alt="">
+            <img alt="uploaded image" class="mx-auto shadow h-auto max-w-full p-4 bg-gray-50 shadow my-4" src="{{asset("storage/".$post->image->path)}}" alt="">
         @endif
         <hr class="my-2 border-gray-300">
   
