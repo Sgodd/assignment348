@@ -7,9 +7,20 @@
 
 <div class="post-body text-gray-700 mt-6" id="{{"post-".$post->id}}"">
     <div class="mx-4 w-auto p-4 rounded-t-lg bg-pink-600 text-white shadow z-0 relative" >
-        <div class="w-full">
-            <span class="text-xs font-bold">Posted at {{date_format(($post->created_at), "d/m/Y H:i")}}</span><br>
-            <span class="text-sm font-semibold">by {{$post->user->name}}</span><br>
+        <div class="w-full inline-block items-center">
+
+            <div class="inline-block align-middle">
+                @if ($post->user->image_id) 
+                    <img class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/".$post->user->image->path)}}" alt="">
+                @else 
+                    <img class="mx-auto shadow h-auto w-12 bg-gray-50 rounded-full" src="{{asset("storage/profiles/default.png")}}" alt="">
+                @endif
+            </div>
+            <div class="ml-2 inline-block align-middle">
+                <span class="text-xs font-bold">Posted at {{date_format(($post->created_at), "d/m/Y H:i")}}</span><br>
+                <span class="text-sm font-semibold">by {{$post->user->name}}</span><br>
+            </div>
+            
         </div>
     </div>
     <div class="mx-4 w-auto p-4 shadow z-20 relative">

@@ -11,10 +11,18 @@ class Role extends Model
         return $this->belongsTo(\App\Models\User::class);
     }
 
+
+    public function test() {
+        
+    }
+
     public const PERMISSIONS = [
-		'READ'   => 0,
-		'EDIT'   => 1,
-		'DELETE' => 2
+		'READ'       => 0,
+        'EDIT'       => 1,
+        'LIKE'       => 2,
+        'DELETE'     => 3,
+        'EDIT_ALL'   => 4,
+        'DELETE_ALL' => 5
 	];
 
 	public static function getFlag($perms)

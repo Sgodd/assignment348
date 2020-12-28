@@ -26,10 +26,18 @@
             </form>
         </div>
 
+        <div class="mx-4 p-4 mb-4 justify-center align-middle">
+            {{ $posts->onEachSide(1)->links() }}
+        </div>
+
         <div class="mx-4 w-auto p-4 pt-1 rounded-lg shadow">
             @foreach ($posts as $post)
                 @include("posts.postv2", $post)
             @endforeach
+        </div>
+
+        <div class="mx-4 mt-4 p-4 justify-center align-middle">
+            {{ $posts->onEachSide(1)->links() }}
         </div>
     </div>
 

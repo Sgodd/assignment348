@@ -1,10 +1,12 @@
 @php
-    
+    use App\Models\Role;
+
     $user = auth()->user();
-    
+    $flag = $user->role->permissions_flag;
+
+    $ownsPost = $user->id == $post->user_id;
 
     $likes = $post->likes;
-
     $liked = false;
 
     foreach ($likes as $like) {
@@ -13,7 +15,6 @@
             break;
         }
     }
-
     
 @endphp
 
@@ -44,7 +45,7 @@
         <input class="reply-id" type="hidden" name="post_id" value="{{$post->id}}">
     </form>
 
-    @if ($user->id == $post->user_id)
+    @if ($ownsPost or Role::hasPermission($flag, "EDIT_ALL"))
     
         <form class="my-0 edit-form" method="PUT" action="posts/edit">
             @csrf
@@ -56,7 +57,9 @@
                 </svg>
             </button>
         </form>
-
+    @endif
+    
+    @if ($ownsPost or Role::hasPermission($flag, "DELETE_ALL"))
         <form class="my-0 delete-form" method="POST" action="posts/delete">
             @csrf
             <input class="reply-id" type="hidden" name="post_id" value="{{$post->id}}">
@@ -66,9 +69,8 @@
                 </svg>
             </button>
         </form>
-
-
-
     @endif
+
+    
 </div>
 

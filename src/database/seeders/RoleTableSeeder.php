@@ -16,9 +16,11 @@ class RoleTableSeeder extends Seeder
     {
         $admin = new Role([
             'permissions_flag' => Role::getFlag([
-                "READ", 
-                "EDIT",
-                "DELETE"
+                'READ',
+                'EDIT',
+                'DELETE',
+                'EDIT_ALL',
+                'DELETE_ALL'  
             ]),
             'description' => "admin"
         ]);
@@ -26,8 +28,10 @@ class RoleTableSeeder extends Seeder
 
         $moderator = new Role([
             'permissions_flag' => Role::getFlag([
-                "READ", 
-                "DELETE"
+                'READ',
+                'EDIT',
+                'DELETE',
+                'DELETE_ALL'  
             ]),
             'description' => "moderator"
         ]);
@@ -35,13 +39,15 @@ class RoleTableSeeder extends Seeder
         $user = new Role([
             'permissions_flag' => Role::getFlag([
                 "READ", 
+                "EDIT",
+                "DELETE"
             ]),
             'description' => "user"
         ]);
 
-        $noaccess = new Role([
+        $guest = new Role([
             'permissions_flag' => Role::getFlag([
-
+                
             ]),
             'description' => "noaccess"
         ]);
@@ -49,6 +55,6 @@ class RoleTableSeeder extends Seeder
         $admin     -> save();
         $moderator -> save();
         $user      -> save();
-        $noaccess  -> save();
+        $guest  -> save();
     }
 }

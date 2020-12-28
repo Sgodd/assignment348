@@ -110,17 +110,14 @@ class PostController extends Controller
 
         $text = $request->text; 
 
-
-        if ($user->id == $post->user_id) {
-
+        $flag = $user->role->permissions_flag;
+        if ($user->id == $post->user_id or Role::hasPermission($flag, "EDIT_ALL")) {
             if (!ctype_space($text)) {
                 $post->text = $text;
                 $post->save();
             } else {
                 return false;
             }
-   
-            
             return true;
         } else {
             return false;
@@ -140,7 +137,9 @@ class PostController extends Controller
         $user = auth()->user();
         $post = Post::find($request->post_id);
 
-        if ($user->id == $post->user_id) {
+        $flag = $user->role->permissions_flag;
+
+        if ($user->id == $post->user_id or Role::hasPermission($flag, "DELETE_ALL")) {
             $post->delete();
             $post->save();
         }
