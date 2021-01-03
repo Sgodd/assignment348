@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\News\NewsGateway;
+
+app()->singleton('App\News\NewsGateway', function($app) {
+    return new NewsGateway("aFxo2Kt1MCaq4XUIZutSK5XTPUwlw2oMQAAOn09BfkQPFu6C");
+});
+
+$n = app()->make('App\News\NewsGateway');
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +25,6 @@ Auth::routes();
 // Route::get('/', function () {
 //     return redirect('/home');
 // });
-
 
 
 Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('home');

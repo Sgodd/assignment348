@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\Role;
+use App\News\NewsGateway;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,15 +28,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(NewsGateway $n)
     {
+
+        $news = $n->latest();
+
         $user = Auth::user();
         if (Role::hasPermission($user->role->permissions_flag, "READ")) {
             $posts = Post::orderBy('created_at', 'DESC')->where("reply_id", NULL)->paginate(15);
-            return view('home', ['posts' => $posts]);
+
+            return view('home', ['posts' => $posts, 'news' => $n->latest()]);
         } else {
-            return $user;
-            // return view('forbidden', ['posts' => null]);
+            return view('forbidden', ['posts' => null]);
         }
 
         // return $posts;

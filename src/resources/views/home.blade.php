@@ -26,6 +26,20 @@
             </form>
         </div>
 
+        <div class="mx-4 w-auto p-4 py-8 rounded-lg shadow">
+            <div class="mx-4 w-auto p-4 rounded-t-lg bg-pink-600 text-white shadow" >
+                <div class="w-full inline-block items-center font-bold text-lg">
+                    Latest News
+                </div>
+            </div>
+            <div class="mx-4 w-auto p-4 rounded-b-lg shadow space-y-1.5" >
+                @foreach ($news as $item)
+                    <p> <a href="{{$item['url']}}" class="accent-link hover:text-pink-600 hover:underline"> {{$item["title"]}} </a></p>
+                @endforeach
+            </div>
+
+        </div>
+
         <div class="mx-4 p-4 mb-4 justify-center align-middle">
             {{ $posts->onEachSide(1)->links() }}
         </div>
@@ -79,7 +93,7 @@
             var action = $(this).attr("action");
             var count = $($(this).find(".like-count")[0])
 
-            var btn = $(this).children("button[name='like-btn']");
+            var btn = $(this).children("button[name='like_button']");
             var add = 1;
             
 
@@ -92,7 +106,6 @@
             }
 
             count.html((+count.html()+add));
-
 
             $.ajax({
                 "url":action,
@@ -112,14 +125,7 @@
             return false;
         });
 
- 
-        // $(document).on("click", ".reply-btn", function() {
-        //     $(this).siblings(".reply-form").removeClass("hidden");
-        // });
 
-        // $(document).on("click", ".delete-btn", function() {
-
-        // });
 
         $(document).on("click", ".edit-btn", function() {
             var form = $(this).parent();
@@ -207,6 +213,10 @@
 
         });
 
+        $(document).on("click", ".reply-btn", function() {
+            $(this).siblings(".reply-form").removeClass("hidden");
+        });
+
         $(document).on("submit", ".reply-form", function() {
             var form = $(this);
             var action = $(this).attr("action");
@@ -215,7 +225,6 @@
             var replyCount = replyTo.find('.reply-count')[0];
 
             if(!replyTo.length) {
-                
                 replyTo = $(this).parent().parent().siblings('.reply-section').children('.replyable');
                 replyCount = replyTo.parent().find('.reply-count')[0];
             }
